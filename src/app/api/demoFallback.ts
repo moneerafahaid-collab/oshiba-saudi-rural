@@ -91,8 +91,12 @@ function toChatSource(exp: CatalogExperience): ChatSource {
   };
 }
 
+/** وضع تجريبي — GitHub Pages فقط (مسار فرعي /oshiba-saudi-rural/) */
 export function isOfflineDemoMode(): boolean {
-  return import.meta.env.PROD && !import.meta.env.VITE_API_URL;
+  if (import.meta.env.VITE_OFFLINE_DEMO === "true") return true;
+  if (import.meta.env.VITE_API_URL) return false;
+  const base = import.meta.env.BASE_URL || "/";
+  return import.meta.env.PROD && base !== "/" && base !== "";
 }
 
 export function demoLogin(phone: string, password: string) {

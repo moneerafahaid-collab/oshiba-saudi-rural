@@ -1,5 +1,6 @@
-# نشر منصة عشيبة السعودية الريفية على Render
-# رابط النشر السريع: https://render.com/deploy?repo=https://github.com/moneerafahaid-collab/oshiba-saudi-rural
+# نشر كامل: واجهة + API + PostgreSQL على Render
+# رابط النشر: https://render.com/deploy?repo=https://github.com/moneerafahaid-collab/oshiba-saudi-rural
+# مهم: Blueprint Path = render.yaml (جذر المشروع — ليس backend/render.yaml)
 
 databases:
   - name: oshiba-db
@@ -12,7 +13,7 @@ services:
     name: oshiba-saudi-rural
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build && cd backend && npm install
+    buildCommand: npm ci && npm run build && cd backend && npm ci
     startCommand: cd backend && npm start
     healthCheckPath: /api/health
     envVars:
@@ -22,8 +23,6 @@ services:
         fromDatabase:
           name: oshiba-db
           property: connectionString
-      - key: CLIENT_URL
-        sync: false
       - key: GEMINI_API_KEY
         sync: false
       - key: GEMINI_MODEL

@@ -87,14 +87,6 @@ app.use("/api/dashboard", dashboardRouter);
 app.use("/api/panel", panelRouter);
 app.use("/api/reviews", reviewsRouter);
 
-if (process.env.NODE_ENV === "production") {
-  const distPath = path.join(__dirname, "..", "dist");
-  app.use(express.static(distPath));
-  app.get(/^(?!\/api).*/, (req, res) => {
-    res.sendFile(path.join(distPath, "index.html"));
-  });
-}
-
 /** تعبئة قاعدة البيانات — للتطوير */
 app.post("/api/seed", async (req, res, next) => {
   try {
@@ -111,6 +103,14 @@ app.post("/api/seed", async (req, res, next) => {
     next(err);
   }
 });
+
+if (process.env.NODE_ENV === "production") {
+  const distPath = path.join(__dirname, "..", "dist");
+  app.use(express.static(distPath));
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+}
 
 app.use((req, res) => {
   res.status(404).json({

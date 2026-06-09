@@ -24,7 +24,11 @@
 
 1. افتح: **https://render.com/deploy?repo=https://github.com/moneerafahaid-collab/oshiba-saudi-rural**
 2. سجّل دخول GitHub واضغط **Apply**
-3. (اختياري) أضف `GEMINI_API_KEY` في Environment Variables
+3. **مهم:** Blueprint Path = `render.yaml` (جذر المشروع) — **ليس** `backend/render.yaml`
+4. انتظر حتى يظهر **Web Service + Database** (ليس قاعدة بيانات فقط)
+5. (اختياري) أضف `GEMINI_API_KEY` في Environment Variables
+
+**رابط الموقع الكامل:** https://oshiba-saudi-rural.onrender.com
 
 ## تشغيل محلي
 
