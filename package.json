@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
+    "build:render": "npm install --include=dev && vite build",
     "preview": "vite preview --open"
   },
   "dependencies": {
