@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { Experience } from "../App";
 import { getDetailFallback } from "../data/experienceEnrichment";
+import { assetUrl } from "../utils/assetUrl";
 
 interface ExperienceDetailModalProps {
   experience: Experience;
@@ -48,7 +49,7 @@ export function ExperienceDetailModal({
       <div className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-card rounded-t-3xl sm:rounded-3xl shadow-2xl border border-border">
         <div className="relative h-44 sm:h-52 shrink-0">
           <img
-            src={experience.imageUrl}
+            src={assetUrl(experience.imageUrl)}
             alt={experience.title}
             className="w-full h-full object-cover"
           />

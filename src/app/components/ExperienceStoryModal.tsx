@@ -1,6 +1,7 @@
 import { X, BookOpen, MapPin, User, Sparkles } from "lucide-react";
 import type { Experience } from "../App";
 import { StoryTeaser, splitStoryTeaser } from "./StoryTeaser";
+import { assetUrl } from "../utils/assetUrl";
 
 interface ExperienceStoryModalProps {
   experience: Experience;
@@ -48,7 +49,7 @@ export function ExperienceStoryModal({
       <div className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto bg-card rounded-t-3xl sm:rounded-3xl shadow-2xl border border-border">
         <div className="relative h-48 sm:h-56 shrink-0">
           <img
-            src={experience.imageUrl}
+            src={assetUrl(experience.imageUrl)}
             alt={experience.title}
             className="w-full h-full object-cover"
           />
@@ -145,7 +146,7 @@ export function ExperienceStoryModal({
                 {previewImages.map((src, i) => (
                   <img
                     key={src + i}
-                    src={src}
+                    src={assetUrl(src)}
                     alt={`معاينة ${experience.title}`}
                     className="w-full h-44 object-cover"
                   />

@@ -1,5 +1,7 @@
+import { assetUrl } from "../../utils/assetUrl";
+
 /** أسلوب دائري نظيف مثل «روح السعودية» — خلفية لونية + صورة */
-const AVATAR_SRC = "/images/oshiba-avatar.png";
+const AVATAR_SRC = assetUrl("/images/oshiba-avatar.png");
 
 /** لون الخلفية داخل الدائرة (بنفسجي-أزرق هادئ كما في Visit Saudi) */
 const CIRCLE_BG = "bg-[#7B89B8]";

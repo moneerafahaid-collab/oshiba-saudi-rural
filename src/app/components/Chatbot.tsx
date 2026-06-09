@@ -777,7 +777,7 @@ export function Chatbot({
             <div className="p-4 pb-2">
               <AssistantBubble>{welcomeText}</AssistantBubble>
 
-              {apiOnline === false && (
+              {apiOnline === false && import.meta.env.DEV && (
                 <div className="mb-4 bg-destructive/10 border border-destructive/30 rounded-xl px-3 py-2 text-[11px] text-destructive text-right">
                   الخادم غير متصل — شغّل:{" "}
                   <code className="bg-black/5 px-1 rounded">cd backend && npm start</code>

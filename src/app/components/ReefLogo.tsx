@@ -1,5 +1,7 @@
+import { assetUrl } from "../utils/assetUrl";
+
 /** شعار منصة عشيبة السعودية الريفية — PNG بخلفية شفافة */
-export const OSHIBA_LOGO_SRC = "/images/oshiba-saudi-logo.png";
+export const OSHIBA_LOGO_SRC = assetUrl("/images/oshiba-saudi-logo.png");
 
 /** نسبة العرض إلى الارتفاع بعد قص الهوامش (890×426) */
 export const OSHIBA_LOGO_ASPECT = 890 / 426;

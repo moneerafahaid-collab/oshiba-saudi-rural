@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { assetUrl } from "../utils/assetUrl";
 import {
   User,
   Calendar,
@@ -245,7 +246,7 @@ export function ProviderPanel({ user, onBack, onLogout }: ProviderPanelProps) {
                             <Trash2 className="w-4 h-4" />
                           </button>
                           <img
-                            src={String(e.imageUrl)}
+                            src={assetUrl(String(e.imageUrl))}
                             alt=""
                             className="w-14 h-14 rounded-lg object-cover shrink-0"
                           />

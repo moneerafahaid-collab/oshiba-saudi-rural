@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight, MapPin, Star, BookOpen } from "lucide-react";
 import type { ChatSource } from "../../api/client";
+import { assetUrl } from "../../utils/assetUrl";
 
 export type CarouselItem = ChatSource & {
   imageUrl?: string;
@@ -106,7 +107,7 @@ function RichCard({
       <div className="relative h-[130px] bg-muted shrink-0">
         {item.imageUrl ? (
           <img
-            src={item.imageUrl}
+            src={assetUrl(item.imageUrl)}
             alt={item.title}
             className="w-full h-full object-cover"
           />
@@ -218,7 +219,7 @@ function HorizontalCard({
       <div className="w-[100px] shrink-0 relative bg-muted">
         {item.imageUrl ? (
           <img
-            src={item.imageUrl}
+            src={assetUrl(item.imageUrl)}
             alt={item.title}
             className="w-full h-full min-h-[120px] object-cover"
           />

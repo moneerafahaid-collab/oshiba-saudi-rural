@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { assetUrl } from "../../utils/assetUrl";
 
 export interface ChoiceItem {
   id: string;
@@ -78,7 +79,7 @@ export function ChoiceCarousel({
                   </div>
                   <div className="w-[90px] shrink-0">
                     <img
-                      src={item.imageUrl}
+                      src={assetUrl(item.imageUrl)}
                       alt={item.label}
                       className="w-full h-full min-h-[100px] object-cover"
                     />

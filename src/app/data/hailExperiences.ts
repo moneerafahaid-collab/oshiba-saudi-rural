@@ -1,3 +1,5 @@
+import { assetUrl } from "../utils/assetUrl";
+
 /** تجارب منطقة حائل — محميات، فعاليات، مغامرات، وإقامة */
 export interface Experience {
   id: number;
@@ -27,7 +29,7 @@ export const hailExperiences: Experience[] = [
     duration: "٥ ساعات",
     rating: 4.9,
     reviews: 128,
-    imageUrl: "/images/hail/faqa-reserve.png",
+    imageUrl: assetUrl("/images/hail/faqa-reserve.png"),
     host: "مرشدو محمية الفقع",
     maxGroup: 12,
     tags: ["محمية الفقع", "بيئة", "حياة برية", "حائل"],
@@ -42,7 +44,7 @@ export const hailExperiences: Experience[] = [
     duration: "٦ ساعات",
     rating: 4.8,
     reviews: 94,
-    imageUrl: "/images/hail/farwa-reserve.png",
+    imageUrl: assetUrl("/images/hail/farwa-reserve.png"),
     host: "فريق المحميات بحائل",
     maxGroup: 10,
     tags: ["محمية الفرولة", "فراولة", "زراعة", "حائل"],
@@ -57,7 +59,7 @@ export const hailExperiences: Experience[] = [
     duration: "٦ ساعات",
     rating: 4.9,
     reviews: 167,
-    imageUrl: "/images/hail/tattees-night.png",
+    imageUrl: assetUrl("/images/hail/tattees-night.png"),
     host: "نجوم حائل",
     maxGroup: 15,
     tags: ["تطعيس", "فلك", "ليل", "صحراء"],
@@ -72,7 +74,7 @@ export const hailExperiences: Experience[] = [
     duration: "٤ ساعات",
     rating: 4.7,
     reviews: 203,
-    imageUrl: "/images/hail/jo-event.png",
+    imageUrl: assetUrl("/images/hail/jo-event.png"),
     host: "فعالية جو حائل",
     maxGroup: 20,
     tags: ["فعالية جو", "شعيب جو", "دفع رباعي", "عائلات"],
@@ -87,7 +89,7 @@ export const hailExperiences: Experience[] = [
     duration: "٧ ساعات",
     rating: 4.9,
     reviews: 142,
-    imageUrl: "/images/hail/aja-salma-hiking.png",
+    imageUrl: assetUrl("/images/hail/aja-salma-hiking.png"),
     host: "مسارات أجا",
     maxGroup: 8,
     tags: ["هايكينق", "أجا وسلمى", "جبال", "مغامرة"],
@@ -134,7 +136,7 @@ export const hailExperiences: Experience[] = [
     duration: "٣ ساعات",
     rating: 4.7,
     reviews: 72,
-    imageUrl: "/images/hail/al-tai-horses.png",
+    imageUrl: assetUrl("/images/hail/al-tai-horses.png"),
     host: "أكاديمية ومربط الطائي",
     maxGroup: 6,
     tags: ["خيول", "مربط الطائي", "تراث", "حائل"],

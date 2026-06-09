@@ -1,3 +1,5 @@
+import { assetUrl } from "../utils/assetUrl";
+
 export interface RegionSpotlight {
   fullRegion: string;
   name: string;
@@ -16,7 +18,7 @@ export const REGION_SPOTLIGHTS: Record<string, RegionSpotlight> = {
       "حيث تمتزج المغامرة بجمال الطبيعة — من محمية الفقع ومحمية الفروة إلى فعاليات التطعيس وجو هايكينق آجا وسلمى، مرورًا بمنتجعات عقده وقطاف الفراولة وركوب الخيل بين الجبال.",
     highlight: "تجربة واحدة تجمع كل سحر حائل في مكان واحد.",
     tags: ["محميات", "تطعيس", "هايكينق", "عقده", "فراولة"],
-    imageUrl: "/images/hail/hail-banner.png",
+    imageUrl: assetUrl("/images/hail/hail-banner.png"),
     imageAlt: "جبال وصحراء حائل — منظر طبيعي",
   },
   "منطقة جازان": {

@@ -11,6 +11,7 @@ import { VisitorTestimonials } from "./components/VisitorTestimonials";
 import { ExperienceDetailModal } from "./components/ExperienceDetailModal";
 import { ExperienceStoryModal } from "./components/ExperienceStoryModal";
 import { ReefLogo } from "./components/ReefLogo";
+import { assetUrl } from "./utils/assetUrl";
 import {
   fetchExperiences,
   checkApiHealth,
@@ -1010,7 +1011,7 @@ export default function App() {
                 style={{ aspectRatio: "3/4" }}
               >
                 <img
-                  src={region.imageUrl}
+                  src={assetUrl(region.imageUrl)}
                   alt={`منطقة ${region.name} - ${region.desc}`}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-106"
                 />
@@ -1078,7 +1079,7 @@ export default function App() {
 
             <div className="relative rounded-2xl overflow-hidden h-72 md:h-96 bg-primary/40">
               <img
-                src="/images/provider-farmers.png"
+                src={assetUrl("/images/provider-farmers.png")}
                 alt="مزارع سعودي يقطف البن في مزرعة تقليدية"
                 className="w-full h-full object-cover opacity-50"
               />
@@ -1241,7 +1242,7 @@ function ExperienceCard({
       {/* Image */}
       <div className="relative h-52 bg-muted overflow-hidden shrink-0">
         <img
-          src={experience.imageUrl}
+          src={assetUrl(experience.imageUrl)}
           alt={experience.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />

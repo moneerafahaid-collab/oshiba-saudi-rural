@@ -1,7 +1,8 @@
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
-const BACKEND_HINT =
-  "تأكد من تشغيل الخادم: cd backend ثم npm start (المنفذ 5000)";
+const BACKEND_HINT = import.meta.env.PROD
+  ? "الخادم غير متاح حالياً — جرّب لاحقاً أو استخدم النسخة المحلية."
+  : "تأكد من تشغيل الخادم: cd backend ثم npm start (المنفذ 5000)";
 
 async function parseResponse(res: Response): Promise<Record<string, unknown>> {
   const text = await res.text();

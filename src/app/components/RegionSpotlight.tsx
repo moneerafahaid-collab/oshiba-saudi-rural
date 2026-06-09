@@ -1,5 +1,6 @@
 import { MapPin, Navigation } from "lucide-react";
 import { getRegionSpotlight } from "../data/regionSpotlight";
+import { assetUrl } from "../utils/assetUrl";
 import type { LocationStatus } from "../hooks/useUserRegion";
 
 interface RegionSpotlightProps {
@@ -119,7 +120,7 @@ export function RegionSpotlight({
         </div>
         <div className="relative h-48 md:h-auto min-h-[12rem]">
           <img
-            src={spotlight.imageUrl}
+            src={assetUrl(spotlight.imageUrl)}
             alt={spotlight.imageAlt}
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
