@@ -1,5 +1,3 @@
-import { assetUrl } from "../utils/assetUrl";
-
 /** حقول إثراء اختيارية — تُطبَّق تجربةً تجربة (نموذج: مربط الطائي) */
 export interface BookingOption {
   label: string;
@@ -44,7 +42,7 @@ export const EXPERIENCE_ENRICHMENT: Record<number, ExperienceStoryFields> = {
     hostTitle: "تطعيس وتراث النفود — نجوم حائل",
     whySpecial:
       "في نجم حائل… إحنا ما نقدم خدمة تطعيس فقط، إحنا نصنع ذكرى ترجع تتكلم عنها كل مرة تشوف فيها الرمل.",
-    previewImages: [assetUrl("/images/hail/tattees-night.png")],
+    previewImages: ["/images/hail/tattees-night.png"],
   },
   [SHAMMAR_ID]: {
     description:
@@ -98,7 +96,7 @@ export const EXPERIENCE_ENRICHMENT: Record<number, ExperienceStoryFields> = {
     hostTitle: "مربي خيل عربي أصيل — أكاديمية ومربط الطائي",
     whySpecial:
       "تجربة تجمع بين ركوب الخيل والحكاية والمهنة التراثية في قلب الريف الحائلي.",
-    previewImages: [assetUrl("/images/hail/al-tai-horses.png")],
+    previewImages: ["/images/hail/al-tai-horses.png"],
   },
 };
 

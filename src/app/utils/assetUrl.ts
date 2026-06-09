@@ -9,7 +9,13 @@ export function assetUrl(path: string): string {
     return path;
   }
 
-  const normalized = path.startsWith("/") ? path.slice(1) : path;
   const base = import.meta.env.BASE_URL || "/";
+
+  // تجنّب تكرار base path (مثلاً عند تطبيق assetUrl مرتين)
+  if (path.startsWith(base)) {
+    return path;
+  }
+
+  const normalized = path.startsWith("/") ? path.slice(1) : path;
   return `${base}${normalized}`;
 }
