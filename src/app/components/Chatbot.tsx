@@ -648,11 +648,13 @@ export function Chatbot({
       } else if (res.intent === "faq" && guideStep === "done" && !prefs.audience) {
         setGuideStep("audience");
       }
-    } catch (err) {
+    } catch {
+      const fallback = await loadFilteredExperiences(activePrefs);
       pushAssistant(
-        err instanceof Error
-          ? err.message
-          : "تعذّر الاتصال بعشيبة. تأكد من تشغيل الخادم."
+        fallback.length
+          ? `إليك ${fallback.length} تجربة مناسبة. اختر من الكروت للحجز أو القصة.`
+          : "لم أجد تجربة مطابقة — جرّب منطقة أو فئة أخرى من الكروت.",
+        fallback.length ? { sources: fallback } : undefined
       );
     } finally {
       setLoading(false);

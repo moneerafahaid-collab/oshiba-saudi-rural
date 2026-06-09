@@ -1,3 +1,11 @@
+import {
+  demoChatMessage,
+  demoLogin,
+  demoRegisterVisitor,
+  isOfflineDemoMode,
+} from "./demoFallback";
+import { filterCatalogExperiences } from "../data/catalogExperiences";
+
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
 const BACKEND_HINT = import.meta.env.PROD
@@ -73,21 +81,28 @@ export async function fetchExperiences(params?: {
   category?: string;
   search?: string;
 }): Promise<ApiExperience[]> {
-  const q = new URLSearchParams();
-  if (params?.region && params.region !== "جميع المناطق") {
-    q.set("region", params.region);
+  if (isOfflineDemoMode()) {
+    return filterCatalogExperiences(params);
   }
-  if (params?.category && params.category !== "all") {
-    q.set("category", params.category);
+  try {
+    const q = new URLSearchParams();
+    if (params?.region && params.region !== "جميع المناطق") {
+      q.set("region", params.region);
+    }
+    if (params?.category && params.category !== "all") {
+      q.set("category", params.category);
+    }
+    if (params?.search?.trim()) {
+      q.set("search", params.search.trim());
+    }
+    const query = q.toString();
+    const res = await request<{ success: boolean; data: ApiExperience[] }>(
+      `/experiences${query ? `?${query}` : ""}`
+    );
+    return res.data ?? [];
+  } catch {
+    return filterCatalogExperiences(params);
   }
-  if (params?.search?.trim()) {
-    q.set("search", params.search.trim());
-  }
-  const query = q.toString();
-  const res = await request<{ success: boolean; data: ApiExperience[] }>(
-    `/experiences${query ? `?${query}` : ""}`
-  );
-  return res.data ?? [];
 }
 
 export async function createBooking(body: {
@@ -166,22 +181,29 @@ export async function sendChatMessage(
     selectedExperienceId?: number | string;
   }
 ) {
-  return request<{
-    success: boolean;
-    reply: string;
-    sources?: ChatSource[];
-    intent?: ChatIntent;
-    actions?: ChatAction[];
-    mode?: string;
-  }>("/chat", {
-    method: "POST",
-    body: JSON.stringify({
-      message,
-      profile: options?.profile,
-      history: options?.history,
-      selectedExperienceId: options?.selectedExperienceId,
-    }),
-  });
+  if (isOfflineDemoMode()) {
+    return demoChatMessage(message, options);
+  }
+  try {
+    return await request<{
+      success: boolean;
+      reply: string;
+      sources?: ChatSource[];
+      intent?: ChatIntent;
+      actions?: ChatAction[];
+      mode?: string;
+    }>("/chat", {
+      method: "POST",
+      body: JSON.stringify({
+        message,
+        profile: options?.profile,
+        history: options?.history,
+        selectedExperienceId: options?.selectedExperienceId,
+      }),
+    });
+  } catch {
+    return demoChatMessage(message, options);
+  }
 }
 
 export interface AuthUser {
@@ -201,15 +223,21 @@ export interface AuthUser {
 export const AUTH_STORAGE_KEY = "reef_auth_user";
 
 export async function loginUser(phone: string, password: string) {
-  const res = await request<{
-    success: boolean;
-    message: string;
-    user: AuthUser;
-  }>("/auth/login", {
-    method: "POST",
-    body: JSON.stringify({ phone, password }),
-  });
-  return res;
+  if (isOfflineDemoMode()) {
+    return demoLogin(phone, password);
+  }
+  try {
+    return await request<{
+      success: boolean;
+      message: string;
+      user: AuthUser;
+    }>("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ phone, password }),
+    });
+  } catch {
+    return demoLogin(phone, password);
+  }
 }
 
 export async function registerVisitor(body: {
@@ -219,14 +247,21 @@ export async function registerVisitor(body: {
   age: number;
   password: string;
 }) {
-  return request<{
-    success: boolean;
-    message: string;
-    user: AuthUser;
-  }>("/auth/register", {
-    method: "POST",
-    body: JSON.stringify(body),
-  });
+  if (isOfflineDemoMode()) {
+    return demoRegisterVisitor(body);
+  }
+  try {
+    return await request<{
+      success: boolean;
+      message: string;
+      user: AuthUser;
+    }>("/auth/register", {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
+  } catch {
+    return demoRegisterVisitor(body);
+  }
 }
 
 export async function updateVisitorProfile(
@@ -393,6 +428,7 @@ export async function submitInquiry(body: {
 }
 
 export async function checkApiHealth(): Promise<boolean> {
+  if (isOfflineDemoMode()) return false;
   try {
     const res = await fetch(`${API_BASE}/health`);
     const json = await parseResponse(res);
