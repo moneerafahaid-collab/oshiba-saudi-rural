@@ -7,16 +7,24 @@
 | | |
 |---|---|
 | **GitHub** | https://github.com/moneerafahaid-collab/oshiba-saudi-rural |
-| **الموقع المنشور** | https://oshiba-saudi-rural.onrender.com *(بعد النشر)* |
+| **الموقع المنشور (GitHub Pages)** | https://moneerafahaid-collab.github.io/oshiba-saudi-rural/ |
+| **API كامل (اختياري — Render)** | https://oshiba-saudi-rural.onrender.com |
 
-## النشر على Render (رابط واحد للجنة)
+## النشر على GitHub Pages
+
+النشر **تلقائي** عند كل push على فرع `main` عبر GitHub Actions.
+
+لتفعيل أول مرة:
+1. افتح: **Settings → Pages → Build and deployment → Source: GitHub Actions**
+2. أو شغّل workflow يدوياً من تبويب **Actions**
+
+> **ملاحظة:** GitHub Pages يعرض الواجهة. للتجربة الكاملة (عشيبة، الحجز، قاعدة البيانات) أضيفي في **Settings → Secrets and variables → Actions → Variables** المتغير `VITE_API_URL` بقيمة رابط الـ API (مثل Render)، أو انشري الـ API على Render من الرابط أدناه.
+
+## النشر الكامل على Render (واجهة + API + قاعدة بيانات)
 
 1. افتح: **https://render.com/deploy?repo=https://github.com/moneerafahaid-collab/oshiba-saudi-rural**
 2. سجّل دخول GitHub واضغط **Apply**
-3. انتظر 5–10 دقائق حتى يكتمل البناء
-4. (اختياري) في إعدادات الخدمة أضف `GEMINI_API_KEY` لتفعيل عشيبة الذكية
-
-> الخطة المجانية قد تتوقف بعد فترة خمول — أول زيارة قد تأخذ 30–60 ثانية.
+3. (اختياري) أضف `GEMINI_API_KEY` في Environment Variables
 
 ## تشغيل محلي
 
