@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const { migrate } = require("./db/migrate");
@@ -22,12 +23,27 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ─── Middleware ───
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
-    credentials: true,
-  })
-);
+if (process.env.NODE_ENV === "production") {
+  app.use(cors({ origin: true, credentials: true }));
+} else {
+  const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+    .split(",")
+    .map((o) => o.trim())
+    .filter(Boolean);
+
+  app.use(
+    cors({
+      origin(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+          return;
+        }
+        callback(new Error("Not allowed by CORS"));
+      },
+      credentials: true,
+    })
+  );
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -70,6 +86,14 @@ app.use("/api/auth", authRouter);
 app.use("/api/dashboard", dashboardRouter);
 app.use("/api/panel", panelRouter);
 app.use("/api/reviews", reviewsRouter);
+
+if (process.env.NODE_ENV === "production") {
+  const distPath = path.join(__dirname, "..", "dist");
+  app.use(express.static(distPath));
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+}
 
 /** تعبئة قاعدة البيانات — للتطوير */
 app.post("/api/seed", async (req, res, next) => {

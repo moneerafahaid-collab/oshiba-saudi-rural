@@ -8,10 +8,12 @@ function getPool() {
     if (!connectionString) {
       throw new Error("DATABASE_URL غير معرّف في .env");
     }
+    const isProduction = process.env.NODE_ENV === "production";
     pool = new Pool({
       connectionString,
       max: 20,
       idleTimeoutMillis: 30000,
+      ssl: isProduction ? { rejectUnauthorized: false } : undefined,
     });
     pool.on("error", (err) => {
       console.error("خطأ غير متوقع في اتصال PostgreSQL:", err.message);
