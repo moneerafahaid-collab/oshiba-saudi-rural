@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: reef-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: reef
+      POSTGRES_PASSWORD: reef123
+      POSTGRES_DB: reef_saudi
+    ports:
+      - "5433:5432"
+    volumes:
+      - reef_pg_data:/var/lib/postgresql/data
+
+volumes:
+  reef_pg_data:
