@@ -48,25 +48,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ─── Routes ───
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message: "مرحباً بك في API منصة عشيبة السعودية الريفية",
-    version: "1.0.0",
-    endpoints: {
-      health: "GET /api/health",
-      experiences: "GET /api/experiences",
-      bookings: "POST /api/bookings",
-      submissions: "POST /api/submissions",
-      chat: "POST /api/chat",
-      chatStatus: "GET /api/chat/status",
-      authLogin: "POST /api/auth/login",
-      dashboard: "GET /api/dashboard/{visitor|provider|admin}",
-      panel: "GET/POST /api/panel/{provider|admin}",
-      seed: "POST /api/seed",
-    },
-  });
-});
+const apiInfo = {
+  success: true,
+  message: "مرحباً بك في API منصة عشيبة السعودية الريفية",
+  version: "1.0.0",
+  endpoints: {
+    health: "GET /api/health",
+    experiences: "GET /api/experiences",
+    bookings: "POST /api/bookings",
+    submissions: "POST /api/submissions",
+    chat: "POST /api/chat",
+    chatStatus: "GET /api/chat/status",
+    authLogin: "POST /api/auth/login",
+    dashboard: "GET /api/dashboard/{visitor|provider|admin}",
+    panel: "GET/POST /api/panel/{provider|admin}",
+    seed: "POST /api/seed",
+  },
+};
+
+app.get("/api", (req, res) => res.json(apiInfo));
+
+if (process.env.NODE_ENV !== "production") {
+  app.get("/", (req, res) => res.json(apiInfo));
+}
 
 app.get("/api/health", async (req, res) => {
   res.json({
@@ -107,6 +111,9 @@ app.post("/api/seed", async (req, res, next) => {
 if (process.env.NODE_ENV === "production") {
   const distPath = path.join(__dirname, "..", "dist");
   app.use(express.static(distPath));
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
   app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
