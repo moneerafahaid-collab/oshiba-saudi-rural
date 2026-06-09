@@ -128,31 +128,32 @@ app.use((err, req, res, next) => {
 });
 
 // ─── تشغيل ───
-async function startServer() {
-  const databaseUrl = process.env.DATABASE_URL;
-
-  if (databaseUrl) {
-    try {
-      await migrate();
-      const connected = await isConnected();
-      if (connected) {
-        console.log("✓ متصل بـ PostgreSQL");
-        await seedDatabase(false);
-        await seedUsers();
-        await seedPanelData();
-      }
-    } catch (err) {
-      console.warn("⚠ تعذّر الاتصال بـ PostgreSQL:", err.message);
-    }
-  } else {
+async function bootstrapDatabase() {
+  if (!process.env.DATABASE_URL) {
     console.warn("⚠ DATABASE_URL غير معرّف");
+    return;
   }
+  try {
+    await migrate();
+    const connected = await isConnected();
+    if (connected) {
+      console.log("✓ متصل بـ PostgreSQL");
+      await seedDatabase(false);
+      await seedUsers();
+      await seedPanelData();
+    }
+  } catch (err) {
+    console.warn("⚠ تعذّر الاتصال بـ PostgreSQL:", err.message);
+  }
+  ensureIngested().catch((err) =>
+    console.warn("⚠ تهيئة RAG:", err.message)
+  );
+}
 
-  app.listen(PORT, () => {
-    console.log(`✓ الخادم يعمل على http://localhost:${PORT}`);
-    ensureIngested().catch((err) =>
-      console.warn("⚠ تهيئة RAG:", err.message)
-    );
+function startServer() {
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`✓ الخادم يعمل على المنفذ ${PORT}`);
+    bootstrapDatabase();
   });
 }
 

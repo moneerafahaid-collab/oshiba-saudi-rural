@@ -1,6 +1,5 @@
 # نشر كامل: واجهة + API + PostgreSQL على Render
-# رابط النشر: https://render.com/deploy?repo=https://github.com/moneerafahaid-collab/oshiba-saudi-rural
-# مهم: Blueprint Path = render.yaml (جذر المشروع — ليس backend/render.yaml)
+# Blueprint Path = render.yaml (جذر المشروع)
 
 databases:
   - name: oshiba-db
@@ -13,12 +12,14 @@ services:
     name: oshiba-saudi-rural
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build && cd backend && npm ci
-    startCommand: cd backend && npm start
+    buildCommand: npm install && npm run build && cd backend && npm install
+    startCommand: cd backend && node server.js
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=512
       - key: DATABASE_URL
         fromDatabase:
           name: oshiba-db
